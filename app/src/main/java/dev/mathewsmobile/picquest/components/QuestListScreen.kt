@@ -1,22 +1,22 @@
 package dev.mathewsmobile.picquest.components
 
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.*
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Button
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.EnergySavingsLeaf
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.dp
 import dev.mathewsmobile.picquest.viewmodel.QuestsViewModel
 import dev.mathewsmobile.picquest.viewmodel.UiStatus
 
@@ -26,11 +26,13 @@ object QuestListScreen {
 
 @Composable
 fun QuestListScreen(viewModel: QuestsViewModel, handleNewQuest: () -> Unit) {
-    val state by viewModel.uiState.collectAsState()
+    val state = viewModel.questsUiState
     when (state.status) {
-        UiStatus.Loading -> {
+        UiStatus.Initial -> {
             viewModel.fetchQuests()
-            Text("Loading...")
+        }
+        UiStatus.Loading -> {
+            LoadingComponent()
         }
         UiStatus.Loaded -> {
             Scaffold(floatingActionButton = {
@@ -48,10 +50,8 @@ fun QuestListScreen(viewModel: QuestsViewModel, handleNewQuest: () -> Unit) {
                             .fillMaxWidth()
                             .background(MaterialTheme.colors.primary)
                     ) {
-                        items(state.quests.size) {
-                            state.quests.map {
-                                QuestCard(it)
-                            }
+                        items(state.quests) { quest ->
+                            QuestCard(quest)
                         }
                     }
                 }

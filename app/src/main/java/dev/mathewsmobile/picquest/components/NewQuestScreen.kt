@@ -20,6 +20,42 @@ object NewQuestScreen {
 }
 
 @Composable
+fun NewQuestScreen(viewModel: NewQuestViewModel, onQuestSaved: () -> Unit) {
+
+    val name by viewModel.name.collectAsState()
+    val description by viewModel.description.collectAsState()
+    var desiredWeather by remember { mutableStateOf(setOf<Weather>()) }
+    var desiredTime by remember { mutableStateOf(setOf<TimeOfDay>()) }
+
+    NewQuestComponent(
+        name = name,
+        description = description,
+        desiredWeather = desiredWeather,
+        desiredTime = desiredTime,
+        onNameChanged = { viewModel.setName(it) },
+        onDescriptionChanged = { viewModel.setDescription(it) },
+        onWeatherChanged = {
+            desiredWeather = if (desiredWeather.contains(it)) {
+                desiredWeather - it
+            } else {
+                desiredWeather + it
+            }
+        },
+        onTimeChanged = {
+            desiredTime = if (desiredTime.contains(it)) {
+                desiredTime - it
+            } else {
+                desiredTime + it
+            }
+        },
+        onSaveClicked = {
+            viewModel.addQuest()
+            onQuestSaved()
+        }
+    )
+}
+
+@Composable
 fun NewQuestComponent(
     name: String,
     description: String,
@@ -66,42 +102,6 @@ fun NewQuestComponent(
         }
     }
 
-}
-
-@Composable
-fun NewQuestScreen(viewModel: NewQuestViewModel, onQuestSaved: () -> Unit) {
-
-    val name by viewModel.name.collectAsState()
-    val description by viewModel.description.collectAsState()
-    var desiredWeather by remember { mutableStateOf(setOf<Weather>()) }
-    var desiredTime by remember { mutableStateOf(setOf<TimeOfDay>()) }
-
-    NewQuestComponent(
-        name = name,
-        description = description,
-        desiredWeather = desiredWeather,
-        desiredTime = desiredTime,
-        onNameChanged = { viewModel.setName(it) },
-        onDescriptionChanged = { viewModel.setDescription(it) },
-        onWeatherChanged = {
-            desiredWeather = if (desiredWeather.contains(it)) {
-                desiredWeather - it
-            } else {
-                desiredWeather + it
-            }
-        },
-        onTimeChanged = {
-            desiredTime = if (desiredTime.contains(it)) {
-                desiredTime - it
-            } else {
-                desiredTime + it
-            }
-        },
-        onSaveClicked = {
-            viewModel.addQuest()
-            onQuestSaved()
-        }
-    )
 }
 
 @Preview(showBackground = true)
