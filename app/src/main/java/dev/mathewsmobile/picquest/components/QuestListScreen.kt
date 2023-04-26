@@ -2,7 +2,9 @@ package dev.mathewsmobile.picquest.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,9 +21,11 @@ import androidx.compose.material.icons.filled.Map
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import dev.mathewsmobile.picquest.viewmodel.QuestsViewModel
 import dev.mathewsmobile.picquest.data.ui.UiStatus
+import dev.mathewsmobile.picquest.screen.MapScreen
 
 object QuestListScreen {
     const val navRoute = "QuestListScreen"
@@ -37,9 +41,11 @@ fun QuestListScreen(
         UiStatus.Loaded -> {
             Scaffold(floatingActionButton = {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    FloatingActionButton(onClick = { /* TODO */ }) {
+                    FloatingActionButton(onClick = { navController.navigate(MapScreen.navRoute) }) {
                         Icon(Icons.Filled.Map, "View Map")
                     }
+
+                    Spacer(modifier = Modifier.height(8.dp))
 
                     ExtendedFloatingActionButton(
                         icon = { Icon(Icons.Filled.Add, "Add new quest") },
