@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import dev.mathewsmobile.picquest.data.model.TimeOfDay
 import dev.mathewsmobile.picquest.data.model.Weather
 import dev.mathewsmobile.picquest.ui.theme.PicQuestTheme
@@ -20,7 +21,7 @@ object NewQuestScreen {
 }
 
 @Composable
-fun NewQuestScreen(viewModel: NewQuestViewModel, onQuestSaved: () -> Unit) {
+fun NewQuestScreen(viewModel: NewQuestViewModel, navController: NavController) {
 
     val name by viewModel.name.collectAsState()
     val description by viewModel.description.collectAsState()
@@ -50,7 +51,7 @@ fun NewQuestScreen(viewModel: NewQuestViewModel, onQuestSaved: () -> Unit) {
         },
         onSaveClicked = {
             viewModel.addQuest()
-            onQuestSaved()
+            navController.popBackStack()
         }
     )
 }

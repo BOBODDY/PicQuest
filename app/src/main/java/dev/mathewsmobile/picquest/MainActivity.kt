@@ -35,13 +35,11 @@ class MainActivity : ComponentActivity() {
                         startDestination = QuestListScreen.navRoute) {
                         composable(QuestListScreen.navRoute) {
                             val viewModel by viewModels<QuestsViewModel>()
-                            QuestListScreen(viewModel) {
-                                navController.navigate(NewQuestScreen.navRoute)
-                            }
+                            QuestListScreen(viewModel, navController)
                         }
                         composable(NewQuestScreen.navRoute) {
                             val viewModel by viewModels<NewQuestViewModel>()
-                            NewQuestScreen(viewModel) { navController.popBackStack()}
+                            NewQuestScreen(viewModel, navController)
                         }
                     }
                 }

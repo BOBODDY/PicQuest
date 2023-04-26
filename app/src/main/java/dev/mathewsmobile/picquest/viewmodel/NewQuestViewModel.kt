@@ -9,7 +9,6 @@ import dev.mathewsmobile.picquest.data.model.Quest
 import dev.mathewsmobile.picquest.data.model.TimeOfDay
 import dev.mathewsmobile.picquest.data.model.Weather
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.*
@@ -40,7 +39,7 @@ class NewQuestViewModel @Inject constructor(private val repository: QuestReposit
         val quest = Quest(
             id = id,
             name = _nameState.value,
-            description = "Tall mountain in Colorado Springs",
+            description = _descriptionState.value,
             location = Location(id, 34.123, 105.382),
             desiredWeather = listOf(Weather.SUNNY),
             desiredTime = listOf(TimeOfDay.SUNRISE, TimeOfDay.SUNSET)

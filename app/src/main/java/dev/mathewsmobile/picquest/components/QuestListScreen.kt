@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
+import androidx.compose.material.ExtendedFloatingActionButton
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -14,30 +15,36 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Map
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import dev.mathewsmobile.picquest.viewmodel.QuestsViewModel
-import dev.mathewsmobile.picquest.viewmodel.UiStatus
+import dev.mathewsmobile.picquest.data.ui.UiStatus
 
 object QuestListScreen {
     const val navRoute = "QuestListScreen"
 }
 
 @Composable
-fun QuestListScreen(viewModel: QuestsViewModel, handleNewQuest: () -> Unit) {
+fun QuestListScreen(
+    viewModel: QuestsViewModel,
+    navController: NavController
+) {
     val state = viewModel.questsUiState
     when (state.status) {
-        UiStatus.Initial -> {
-            viewModel.fetchQuests()
-        }
-        UiStatus.Loading -> {
-            LoadingComponent()
-        }
         UiStatus.Loaded -> {
             Scaffold(floatingActionButton = {
-                FloatingActionButton(onClick = { handleNewQuest() }) {
-                    Icon(Icons.Filled.Add, "Add new quest")
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    FloatingActionButton(onClick = { /* TODO */ }) {
+                        Icon(Icons.Filled.Map, "View Map")
+                    }
+
+                    ExtendedFloatingActionButton(
+                        icon = { Icon(Icons.Filled.Add, "Add new quest") },
+                        text = { Text("Add") },
+                        onClick = { navController.navigate(NewQuestScreen.navRoute) })
                 }
             }) { padding ->
                 Column(modifier = Modifier.padding(padding)) {
@@ -57,10 +64,18 @@ fun QuestListScreen(viewModel: QuestsViewModel, handleNewQuest: () -> Unit) {
                 }
             }
         }
-        UiStatus.Error -> Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("Error!")
-            Button(onClick = ({ viewModel.fetchQuests() })) {
-                Text("Retry")
+        UiStatus.Initial -> {
+            viewModel.fetchQuests()
+        }
+        UiStatus.Loading -> {
+            LoadingComponent()
+        }
+        UiStatus.Error -> {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("Error!")
+                Button(onClick = ({ viewModel.fetchQuests() })) {
+                    Text("Retry")
+                }
             }
         }
     }
