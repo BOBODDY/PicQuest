@@ -19,8 +19,10 @@ import dev.mathewsmobile.picquest.components.NewQuestScreen
 import dev.mathewsmobile.picquest.components.QuestListScreen
 import dev.mathewsmobile.picquest.screen.MapScreen
 import dev.mathewsmobile.picquest.ui.theme.PicQuestTheme
+import dev.mathewsmobile.picquest.viewmodel.MapViewModel
 import dev.mathewsmobile.picquest.viewmodel.NewQuestViewModel
 import dev.mathewsmobile.picquest.viewmodel.QuestsViewModel
+import org.osmdroid.views.MapView
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -53,7 +55,8 @@ class MainActivity : ComponentActivity() {
                             NewQuestScreen(viewModel, navController)
                         }
                         composable(MapScreen.navRoute) {
-                            MapScreen()
+                            val viewModel by viewModels<MapViewModel>()
+                            MapScreen(viewModel, navController)
                         }
                     }
                 }
