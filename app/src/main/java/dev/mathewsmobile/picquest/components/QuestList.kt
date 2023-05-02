@@ -39,3 +39,11 @@ fun QuestList(
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun QuestListPreview() {
+    PicQuestTheme {
+        QuestList(padding = PaddingValues(0.dp), quests = TestData.quests)
+    }
+}
