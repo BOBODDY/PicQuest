@@ -15,8 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import dev.mathewsmobile.picquest.components.NewQuestScreen
-import dev.mathewsmobile.picquest.components.QuestListScreen
+import dev.mathewsmobile.picquest.screen.NewQuestScreen
 import dev.mathewsmobile.picquest.screen.MapScreen
 import dev.mathewsmobile.picquest.screen.QuestListScreen
 import dev.mathewsmobile.picquest.ui.theme.PicQuestTheme
