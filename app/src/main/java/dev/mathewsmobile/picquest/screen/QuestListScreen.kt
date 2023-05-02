@@ -48,7 +48,7 @@ fun QuestListScreen(
                         onClick = { navController.navigate(NewQuestScreen.navRoute) })
                 }
             }) { padding ->
-                QuestList(padding, state)
+                QuestList(padding, state.quests)
             }
         }
         UiStatus.Initial -> {

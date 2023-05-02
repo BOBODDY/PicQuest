@@ -11,12 +11,16 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import dev.mathewsmobile.picquest.viewmodel.QuestsUiState
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import dev.mathewsmobile.picquest.data.model.Quest
+import dev.mathewsmobile.picquest.ui.theme.PicQuestTheme
+import dev.mathewsmobile.picquest.utils.TestData
 
 @Composable
 fun QuestList(
     padding: PaddingValues,
-    state: QuestsUiState
+    quests: List<Quest>
 ) {
     Column(modifier = Modifier.padding(padding)) {
         Text(
@@ -29,7 +33,7 @@ fun QuestList(
                 .fillMaxWidth()
                 .background(MaterialTheme.colors.primary)
         ) {
-            items(state.quests) { quest ->
+            items(quests) { quest ->
                 QuestCard(quest)
             }
         }
