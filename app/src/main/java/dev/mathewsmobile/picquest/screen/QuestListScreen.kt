@@ -1,18 +1,12 @@
-package dev.mathewsmobile.picquest.components
+package dev.mathewsmobile.picquest.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.ExtendedFloatingActionButton
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -23,9 +17,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import dev.mathewsmobile.picquest.viewmodel.QuestsViewModel
+import dev.mathewsmobile.picquest.components.LoadingComponent
+import dev.mathewsmobile.picquest.components.QuestList
 import dev.mathewsmobile.picquest.data.ui.UiStatus
-import dev.mathewsmobile.picquest.screen.MapScreen
+import dev.mathewsmobile.picquest.viewmodel.QuestsViewModel
 
 object QuestListScreen {
     const val navRoute = "QuestListScreen"
@@ -53,21 +48,7 @@ fun QuestListScreen(
                         onClick = { navController.navigate(NewQuestScreen.navRoute) })
                 }
             }) { padding ->
-                Column(modifier = Modifier.padding(padding)) {
-                    Text(text = "Quest Board",
-                        modifier = Modifier.fillMaxWidth(),
-                        style = MaterialTheme.typography.h1
-                    )
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(MaterialTheme.colors.primary)
-                    ) {
-                        items(state.quests) { quest ->
-                            QuestCard(quest)
-                        }
-                    }
-                }
+                QuestList(padding, state)
             }
         }
         UiStatus.Initial -> {
