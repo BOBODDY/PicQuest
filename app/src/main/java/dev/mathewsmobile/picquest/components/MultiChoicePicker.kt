@@ -15,32 +15,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.mathewsmobile.picquest.data.model.Option
 import dev.mathewsmobile.picquest.data.model.Options
-import dev.mathewsmobile.picquest.data.model.Weather
 import dev.mathewsmobile.picquest.ui.theme.PicQuestTheme
-
-@Preview
-@Composable
-fun MultiPickerPreview() {
-    PicQuestTheme {
-        Surface(color = MaterialTheme.colors.background) {
-            MultiChoicePicker(
-                options = Options.values().toList(),
-                selectedOptions = emptyList(),
-                onOptionSelected = {}
-            )
-        }
-    }
-}
 
 @Composable
 fun <T : Option> MultiChoicePicker(
     modifier: Modifier = Modifier,
     options: List<T>,
     selectedOptions: List<T>,
+    maxColumns: Int = 4,
     onOptionSelected: (T) -> Unit
 ) {
     Column() {
-        options.chunked(5).map { optionLine ->
+        options.chunked(maxColumns).map { optionLine ->
             Row(
                 modifier = modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
@@ -74,5 +60,20 @@ fun <T : Option> MultiChoicePicker(
             }
         }
 
+    }
+}
+
+@Preview
+@Composable
+fun MultiPickerPreview() {
+    PicQuestTheme {
+        Surface(color = MaterialTheme.colors.background) {
+            MultiChoicePicker(
+                options = Options.values().toList(),
+                selectedOptions = emptyList(),
+                maxColumns = 4,
+                onOptionSelected = {}
+            )
+        }
     }
 }
