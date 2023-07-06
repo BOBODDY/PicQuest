@@ -33,10 +33,11 @@ fun DesiredTimePicker(
     onTimeSelected: (TimeOfDay) -> Unit
 ) {
     Column(modifier = modifier) {
-//        HeaderWithLearnMore(title = "Desired Weather") {
-//            // TODO
-//        }
-        Text("Time of Day", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+        Text(
+            "Time of Day",
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold
+        )
         MultiChoicePicker(
             options = TimeOfDay.values().toList(),
             selectedOptions = selectedOptions,

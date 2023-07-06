@@ -13,3 +13,5 @@ val AccentLight = Color(0xFF80e27e)
 val AccentDark = Color(0xFF076B1E)
 
 val Divider = Color(0xFFBDBDBD)
+
+val Parchment = Color(0xFFebd5b3 )

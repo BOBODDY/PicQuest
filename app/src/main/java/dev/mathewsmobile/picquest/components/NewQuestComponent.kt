@@ -1,9 +1,11 @@
 package dev.mathewsmobile.picquest.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -50,13 +52,18 @@ fun NewQuestComponent(
         Spacer(modifier = Modifier.height(16.dp))
 
         DesiredWeatherPicker(
+            modifier = Modifier.fillMaxWidth(0.9f),
             selectedOptions = desiredWeather.toList(),
             onWeatherSelected = onWeatherChanged
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        DesiredTimePicker(selectedOptions = desiredTime.toList(), onTimeSelected = onTimeChanged)
+        DesiredTimePicker(
+            modifier = Modifier.fillMaxWidth(0.9f),
+            selectedOptions = desiredTime.toList(),
+            onTimeSelected = onTimeChanged
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -64,7 +71,6 @@ fun NewQuestComponent(
             Text("Save")
         }
     }
-
 }
 
 @Preview(showBackground = true)

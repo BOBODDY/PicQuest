@@ -7,8 +7,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import dev.mathewsmobile.picquest.data.model.Location
 import dev.mathewsmobile.picquest.data.model.Quest
+import java.util.UUID
 
 @Composable
 fun QuestCard(quest: Quest) {
@@ -33,4 +36,18 @@ fun QuestCard(quest: Quest) {
             }
         }
     }
+}
+
+@Composable
+@Preview
+fun QuestCardPreview() {
+    val quest = Quest(
+        id = UUID.randomUUID(),
+        name = "Sunrise on Pike's Peak",
+        description = null,
+        location = Location(UUID.randomUUID(), 38.8409, -105.0423),
+        desiredWeather = listOf(),
+        desiredTime = listOf(),
+    )
+    QuestCard(quest)
 }
