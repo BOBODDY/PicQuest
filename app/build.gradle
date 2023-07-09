@@ -80,6 +80,12 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+
+    //For rememberLauncherForActivityResult()
+    implementation 'androidx.activity:activity-compose:1.6.1'
+
+    //For PickVisualMedia contract
+    implementation 'androidx.activity:activity-ktx:1.6.1'
 }
 
 // Allow references to generated code

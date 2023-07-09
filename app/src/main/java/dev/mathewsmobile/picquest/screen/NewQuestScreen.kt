@@ -1,5 +1,9 @@
 package dev.mathewsmobile.picquest.screen
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia.ImageOnly
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -24,6 +28,11 @@ fun NewQuestScreen(viewModel: NewQuestViewModel, navController: NavController) {
     var desiredWeather by remember { mutableStateOf(setOf<Weather>()) }
     var desiredTime by remember { mutableStateOf(setOf<TimeOfDay>()) }
 
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.PickMultipleVisualMedia()) { uris ->
+        //When the user has selected a photo, its URI is returned here
+        // TODO Load them into the screen
+    }
+
     NewQuestComponent(
         name = name,
         description = description,
@@ -47,6 +56,12 @@ fun NewQuestScreen(viewModel: NewQuestViewModel, navController: NavController) {
         },
         onSaveClicked = {
             viewModel.addQuest()
+            navController.popBackStack()
+        },
+        onAddPhotoClicked = {
+            launcher.launch(PickVisualMediaRequest(mediaType = ImageOnly))
+        },
+        onCloseClicked = {
             navController.popBackStack()
         }
     )
