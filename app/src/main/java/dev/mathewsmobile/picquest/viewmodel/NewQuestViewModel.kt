@@ -1,5 +1,6 @@
 package dev.mathewsmobile.picquest.viewmodel
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,6 +33,14 @@ class NewQuestViewModel @Inject constructor(private val repository: QuestReposit
             _descriptionState.emit(description)
         }
 
+    }
+
+    private val _photosState = MutableStateFlow(emptyList<Uri>())
+    val photos = _photosState.asStateFlow()
+    fun addPhoto(uri: Uri) {
+        viewModelScope.launch {
+            _photosState.emit(_photosState.value + uri)
+        }
     }
 
     fun addQuest() {

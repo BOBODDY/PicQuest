@@ -1,5 +1,6 @@
 package dev.mathewsmobile.picquest.components
 
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,22 +22,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import dev.mathewsmobile.picquest.ui.theme.PicQuestTheme
 
 @Composable
-fun PhotoPicker(onAddPhoto: () -> Unit) {
-    val photos = listOf<String>()
+fun PhotoPicker(
+    photos: List<Uri>,
+    maxPerLine: Int = 5,
+    onAddPhoto: () -> Unit
+) {
+    val photos = photos.ifEmpty { listOf(null) }
+
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         // TODO Only center the icon, not the title
         Text(text = "Add Photos", modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp), style = MaterialTheme.typography.h3)
-        Row(modifier = Modifier
-            .height(64.dp)
-            .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
-            
-            repeat(5) {
-                PhotoIcon(photoResource = null)
+        photos.chunked(maxPerLine).map { photoRow ->
+            Row(modifier = Modifier
+                .height(64.dp)
+                .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
+
+                repeat(maxPerLine) {
+                    val photo = photoRow.getOrNull(it)
+                    PhotoIcon(photoUri = photo)
+                }
             }
         }
         Spacer(modifier = Modifier.height(8.dp))
@@ -47,17 +58,21 @@ fun PhotoPicker(onAddPhoto: () -> Unit) {
 }
 
 @Composable
-fun PhotoIcon(photoResource: String?) {
+fun PhotoIcon(photoUri: Uri?) {
     Card(modifier = Modifier
         .size(64.dp)
         .background(Color.Gray)) {
-
+        photoUri?.let {
+            AsyncImage(model = it, contentDescription = "Your example image")
+        }
     }
 }
 
 @Composable
 fun PhotoButton(onClick: () -> Unit) {
-    Card(modifier = Modifier.size(32.dp).clickable { onClick() }) {
+    Card(modifier = Modifier
+        .size(32.dp)
+        .clickable { onClick() }) {
         Icon(Icons.Default.Add, contentDescription = "Add new photo")
     }
 }
@@ -67,7 +82,7 @@ fun PhotoButton(onClick: () -> Unit) {
 fun PhotoPickerPreview() {
     PicQuestTheme {
         Surface(color = MaterialTheme.colors.background) {
-            PhotoPicker({})
+            PhotoPicker(listOf(), 5, {})
         }
     }
 }

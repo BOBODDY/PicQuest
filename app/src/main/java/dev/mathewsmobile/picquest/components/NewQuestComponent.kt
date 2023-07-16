@@ -1,5 +1,6 @@
 package dev.mathewsmobile.picquest.components
 
+import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +31,7 @@ fun NewQuestComponent(
     description: String,
     desiredWeather: Set<Weather>,
     desiredTime: Set<TimeOfDay>,
+    examplePhotos: List<Uri>,
     onNameChanged: (String) -> Unit,
     onDescriptionChanged: (String) -> Unit,
     onWeatherChanged: (Weather) -> Unit,
@@ -43,7 +45,10 @@ fun NewQuestComponent(
 
         Text(text = "New Quest", style = MaterialTheme.typography.h2)
 
-        PhotoPicker(onAddPhotoClicked)
+        PhotoPicker(
+            photos = examplePhotos,
+            onAddPhoto = onAddPhotoClicked
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -95,6 +100,7 @@ fun NewQuestPreview() {
                 description = "Tall mountain",
                 setOf(Weather.SUNNY),
                 setOf(TimeOfDay.SUNSET),
+                listOf(),
                 {}, {}, {}, {}, {}, {}, {}
             )
         }

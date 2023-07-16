@@ -27,10 +27,10 @@ fun NewQuestScreen(viewModel: NewQuestViewModel, navController: NavController) {
     val description by viewModel.description.collectAsState()
     var desiredWeather by remember { mutableStateOf(setOf<Weather>()) }
     var desiredTime by remember { mutableStateOf(setOf<TimeOfDay>()) }
+    val examplePhotos by viewModel.photos.collectAsState()
 
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.PickMultipleVisualMedia()) { uris ->
-        //When the user has selected a photo, its URI is returned here
-        // TODO Load them into the screen
+        uris.forEach { viewModel.addPhoto(it) }
     }
 
     NewQuestComponent(
@@ -38,6 +38,7 @@ fun NewQuestScreen(viewModel: NewQuestViewModel, navController: NavController) {
         description = description,
         desiredWeather = desiredWeather,
         desiredTime = desiredTime,
+        examplePhotos = examplePhotos,
         onNameChanged = { viewModel.setName(it) },
         onDescriptionChanged = { viewModel.setDescription(it) },
         onWeatherChanged = {
