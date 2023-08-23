@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -41,7 +42,9 @@ fun NewQuestComponent(
     onCloseClicked: () -> Unit
 ) {
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-        Icon(Icons.Default.Close, contentDescription = "Close the screen", modifier = Modifier.padding(16.dp).clickable { onCloseClicked() })
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Icon(Icons.Default.Close, contentDescription = "Close the screen", modifier = Modifier.padding(16.dp).clickable { onCloseClicked() })
+        }
 
         Text(text = "New Quest", style = MaterialTheme.typography.h2)
 

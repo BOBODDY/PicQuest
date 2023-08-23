@@ -58,8 +58,4 @@ class NewQuestViewModel @Inject constructor(private val repository: QuestReposit
         }
     }
 
-    fun openPhotoPicker() {
-        
-    }
-
 }
