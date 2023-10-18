@@ -11,7 +11,7 @@ import dev.mathewsmobile.picquest.data.db.model.Quest
 import dev.mathewsmobile.picquest.data.db.model.TimeOfDay
 import dev.mathewsmobile.picquest.data.db.model.Weather
 
-@Database(entities = [Quest::class, Location::class, TimeOfDay::class, Weather::class], version = 1)
+@Database(entities = [Quest::class, Location::class, TimeOfDay::class, Weather::class], version = 1, exportSchema = false)
 abstract class PicQuestDatabase : RoomDatabase() {
     abstract fun questDao(): QuestDao
     abstract fun locationDao(): LocationDao
